@@ -69,5 +69,5 @@ MIT
 
 ## Credits
 
-Built by crewnest.ai
+Built by ZorCorp
 Based on kf-claude architecture

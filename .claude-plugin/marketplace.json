@@ -1,8 +1,8 @@
 {
   "name": "kf-cli",
   "owner": {
-    "name": "crewnest.ai",
-    "email": "info@crewnest.ai"
+    "name": "ZorCorp",
+    "email": "info@zorcorp.dev"
   },
   "metadata": {
     "description": "KnowledgeFactory CLI - Native CLI tools, no Docker/MCP required",
