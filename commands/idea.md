@@ -23,7 +23,8 @@ Create an idea note using direct file operations (no MCP/Docker required).
 2. Analyze idea content and determine main concepts
 3. **Read template FIRST**:
    ```bash
-   cat ~/.claude/plugins/marketplaces/kf-cli/templates/idea-template.md
+   KFCLI_TEMPLATES=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/templates" -type d 2>/dev/null | head -1)
+   cat "$KFCLI_TEMPLATES/idea-template.md"
    ```
 4. Apply AI-powered smart tagging (using tag taxonomy)
 5. Generate smart filename: `{date}-{3-5-word-idea-name}.md`

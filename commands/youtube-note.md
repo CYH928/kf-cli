@@ -45,7 +45,8 @@ The skill will:
 
 Before generating ANY content, execute this command:
 ```bash
-cat ~/.claude/plugins/marketplaces/kf-cli/templates/youtube-note-template.md
+KFCLI_TEMPLATES=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/templates" -type d 2>/dev/null | head -1)
+cat "$KFCLI_TEMPLATES/youtube-note-template.md"
 ```
 
 ### Step 2: Use EXACT Field Names from Template

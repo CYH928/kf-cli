@@ -27,7 +27,8 @@ Create a study guide note using CLI tools (no MCP/Docker required).
    - **Direct text**: Use the provided text directly
 3. **Read template FIRST**:
    ```bash
-   cat ~/.claude/plugins/marketplaces/kf-cli/templates/study-guide-template.md
+   KFCLI_TEMPLATES=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/templates" -type d 2>/dev/null | head -1)
+   cat "$KFCLI_TEMPLATES/study-guide-template.md"
    ```
 4. Analyze content complexity, topics, and learning requirements
 5. Apply AI-powered smart tagging (using tag taxonomy)

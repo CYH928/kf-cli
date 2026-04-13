@@ -69,7 +69,8 @@ Analyze input and organize into natural sections:
 
 Read the template first:
 ```bash
-cat ~/.claude/plugins/marketplaces/kf-cli/templates/article-template.md
+KFCLI_TEMPLATES=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/templates" -type d 2>/dev/null | head -1)
+cat "$KFCLI_TEMPLATES/article-template.md"
 ```
 
 Substitute:
