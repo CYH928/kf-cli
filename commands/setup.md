@@ -34,9 +34,9 @@ if [[ ! -d ".obsidian" ]]; then
 fi
 
 # Check plugin is installed
-PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/kf-cli"
-if [[ ! -d "$PLUGIN_DIR" ]]; then
-    echo "❌ kf-cli plugin not found at: $PLUGIN_DIR"
+PLUGIN_DIR=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/commands" -type d 2>/dev/null | head -1 | sed "s|/commands$||")
+if [[ -z "$PLUGIN_DIR" ]]; then
+    echo "❌ kf-cli plugin not found"
     echo "   Install with: /plugin install kf-cli"
     exit 1
 fi
@@ -175,7 +175,7 @@ if [[ "$ARGUMENTS" == *"--enable-short-commands"* ]]; then
     echo ""
     echo "📝 Enabling short commands..."
 
-    PLUGIN_COMMANDS="$HOME/.claude/plugins/marketplaces/kf-cli/commands"
+    PLUGIN_COMMANDS=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/commands" -type d 2>/dev/null | head -1)
     VAULT_COMMANDS=".claude/commands"
 
     mkdir -p "$VAULT_COMMANDS"
@@ -233,7 +233,7 @@ echo "Configuration Files:"
 echo "  ~/.claude/plugins/marketplaces/kf-cli/  (plugin)"
 echo "  .claude/config.local.json                (vault config)"
 echo ""
-echo "Need help? https://github.com/ZorroCheng-MC/kf-cli"
+echo "Need help? https://github.com/ZorCorp/kf-cli"
 echo ""
 ```
 
