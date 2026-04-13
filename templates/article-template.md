@@ -3,7 +3,7 @@ title: "{{TITLE}}"
 date: {{DATE}}
 type: article
 status: draft
-tags: {{TAGS}}
+tags: [article, {{TAGS}}]
 summary: "{{SUMMARY}}"
 hero: images/{{SLUG}}-hero.jpg
 created: {{DATE}}

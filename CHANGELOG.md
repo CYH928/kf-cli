@@ -2,6 +2,13 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.4.3] - 2026-04-13
+
+### Fixed
+- `article` command: `{{TAGS}}` now uses canonical vault topic tags (claude-code, gemini, mcp, ai-tools, etc.) routed to correct wiki topics
+- `article` template: tags now formatted as `[article, {{TAGS}}]` YAML inline array — prevents freeform tag format bugs
+- `article` command: explicit rule added — tags must be in frontmatter only, never as `**Tags:** #foo` in body
+
 ## [0.1.0] - 2026-03-12
 
 ### Added

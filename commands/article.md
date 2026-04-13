@@ -79,7 +79,7 @@ Substitute:
 - `{{SLUG}}` - Kebab-case filename slug
 - `{{HERO_PATH}}` - Path to generated hero image
 - `{{CONTENT}}` - Flexible article body
-- `{{TAGS}}` - Auto-generated tags based on content
+- `{{TAGS}}` - Comma-separated tags from the canonical vault tag list below (2-4 tags, no # prefix, no quotes)
 - `{{SUMMARY}}` - 1-2 sentence summary
 
 ### 4. Save to Obsidian Vault
@@ -109,9 +109,30 @@ Markdown article with:
 → Creates: 2026-02-07-how-to-use-developer-knowledge-api.md
 ```
 
+## Canonical Tag List for {{TAGS}}
+
+Pick 2-4 from these vault topic tags based on content. Write as comma-separated values (no # prefix):
+
+| Tag | Use when article is about |
+|-----|--------------------------|
+| `claude-code` | Claude Code CLI, agent SDK, hooks, MCP, Claude API |
+| `gemini` | Gemini AI, Google AI tools, Google Cloud |
+| `mcp` | Model Context Protocol, MCP servers/tools |
+| `ai-tools` | AI agents, agentic workflows, LLMs, RAG, prompt engineering |
+| `ai-media` | Image generation, audio AI, video AI |
+| `kf` | Knowledge Factory, kf-cli, sharehub |
+| `doublecopy` | DoubleCopy clipboard tool |
+| `openclaw` | OpenClaw, Clawdbot, WhatsApp AI, nano-banana |
+| `crewnest` | Crewnest AI company project |
+| `investing` | Finance, stocks, crypto, trading, brokers |
+| `eco-tech` | Sustainability, energy, science, geopolitics |
+| `obsidian` | Obsidian PKM, plugins, knowledge management |
+
+Always include at least one topic tag from this list so the note routes to the correct wiki topic.
+
 ## Important
 
 - **Hero image is MANDATORY** - always generate before article
 - **Flexible structure** - adapt to content, not forced sections
-- **Auto-tag intelligently** - analyze content for relevant tags
+- **Tags in frontmatter ONLY** - never write tags as `**Tags:** #foo` in the body
 - **Use subagent for image** - always spawn with `mode: "bypassPermissions"` to avoid background permission denial
