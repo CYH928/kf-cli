@@ -3,7 +3,7 @@ description: Fetch YouTube video transcript and create comprehensive material en
 argument-hint: [youtube-url-or-video-id] (YouTube URL or video ID to process)
 allowed-tools:
   - Bash(*)
-  - WebFetch
+  - WebFetch(*)
   - Write(*)
   - Read(*)
 ---

@@ -2,6 +2,8 @@
 description: Publish note to GitHub Pages (sharehub) with proper image handling
 argument-hint: [filename] (note to publish, e.g., my-article.md)
 allowed-tools:
+  - Bash(*)
+  - Read(*)
   - Task(*)
 ---
 

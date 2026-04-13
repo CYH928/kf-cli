@@ -2,7 +2,7 @@
 description: Create comprehensive articles/blog posts with auto-generated hero images
 argument-hint: [topic or content]
 allowed-tools:
-  - Bash(date)
+  - Bash(*)
   - Write(*)
   - Read(*)
   - Task(*)

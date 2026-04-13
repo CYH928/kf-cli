@@ -2,6 +2,19 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.4.4] - 2026-04-13
+
+### Fixed
+- Expanded `allowed-tools` in all 11 commands to eliminate Claude Code permission prompts
+  - `article`: `Bash(date)` → `Bash(*)`
+  - `capture`: `Bash(date)` → `Bash(*), Read(*), Write(*), WebFetch(*)`
+  - `gitingest`: `WebFetch` → `WebFetch(*)`
+  - `publish`: added `Bash(*), Read(*)` alongside `Task(*)`
+  - `share`: added `Bash(*), Read(*)` alongside `Task(*)`
+  - `study-guide`: `WebFetch` → `WebFetch(*)`
+  - `youtube-note`: `WebFetch` → `WebFetch(*)`
+  - `bulk-auto-tag`, `idea`, `semantic-search`, `setup`: already complete, no changes needed
+
 ## [0.4.3] - 2026-04-13
 
 ### Fixed

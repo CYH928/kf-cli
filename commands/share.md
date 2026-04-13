@@ -2,6 +2,8 @@
 description: Share note via URL-encoded link (Plannotator-style, no server storage)
 argument-hint: [filename] (note to share, e.g., my-note.md)
 allowed-tools:
+  - Bash(*)
+  - Read(*)
   - Task(*)
 ---
 

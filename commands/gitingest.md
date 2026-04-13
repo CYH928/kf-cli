@@ -5,7 +5,7 @@ allowed-tools:
   - Bash(*)
   - Read(*)
   - Write(*)
-  - WebFetch
+  - WebFetch(*)
 ---
 
 ## Task

@@ -2,12 +2,10 @@
 description: Smart capture router - delegates to specialized handlers based on content type
 argument-hint: [content to capture]
 allowed-tools:
-  - Bash(date)
-  - SlashCommand(/kf-cli:youtube-note)
-  - SlashCommand(/kf-cli:gitingest)
-  - SlashCommand(/kf-cli:article)
-  - SlashCommand(/kf-cli:study-guide)
-  - SlashCommand(/kf-cli:idea)
+  - Bash(*)
+  - Read(*)
+  - Write(*)
+  - WebFetch(*)
 ---
 
 ## Task
