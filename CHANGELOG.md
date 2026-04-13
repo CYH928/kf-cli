@@ -2,6 +2,11 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.4.6] - 2026-04-13
+
+### Added
+- `youtube-note` template: added `read: false` frontmatter field for Obsidian floating read-status button compatibility (📕/📖 toggle)
+
 ## [0.4.5] - 2026-04-13
 
 ### Fixed

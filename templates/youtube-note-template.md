@@ -6,6 +6,7 @@ cover: https://i.ytimg.com/vi/{{VIDEO_ID}}/{{THUMBNAIL}}
 date: {{DATE}}
 type: video
 status: inbox
+read: false
 priority: {{PRIORITY}}
 duration: {{DURATION}}
 channel: {{CHANNEL}}
