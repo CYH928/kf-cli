@@ -120,12 +120,19 @@ if [[ -n "$SHAREHUB_PATH" ]]; then
     REMOTE=$(cd "$SHAREHUB_PATH" && git remote get-url origin 2>/dev/null || echo "none")
     echo "   Remote: $REMOTE"
 
-    # Extract GitHub Pages URL from remote
-    if [[ "$REMOTE" =~ github.com[:/]([^/]+)/([^/.]+) ]]; then
+    # Get URL: prefer _config.yml url field, fall back to github.io
+    if [[ -f "$SHAREHUB_PATH/_config.yml" ]]; then
+        CONFIG_URL=$(grep -E "^url:" "$SHAREHUB_PATH/_config.yml" | sed "s/url:[[:space:]]*//;s/["''']//g" | tr -d '[:space:]')
+        if [[ -n "$CONFIG_URL" ]]; then
+            SHAREHUB_URL="$CONFIG_URL"
+            echo "   Pages URL: $SHAREHUB_URL (from _config.yml)"
+        fi
+    fi
+    if [[ -z "$SHAREHUB_URL" ]] && [[ "$REMOTE" =~ github.com[:/]([^/]+)/([^/.]+) ]]; then
         OWNER="${BASH_REMATCH[1]}"
         REPO="${BASH_REMATCH[2]}"
         SHAREHUB_URL="https://${OWNER}.github.io/${REPO}"
-        echo "   Pages URL: $SHAREHUB_URL"
+        echo "   Pages URL: $SHAREHUB_URL (from remote)"
     fi
 else
     echo "⚠️  Sharehub repo not found in common locations"
