@@ -2,6 +2,11 @@
 
 All notable changes to kf-cli will be documented in this file.
 
+## [0.4.5] - 2026-04-13
+
+### Fixed
+- `article` command: GEMINI_API_KEY is env-var only — no app-specific fallback. If not set, image generation is skipped with a warning. Set via `export GEMINI_API_KEY="..."` in `~/.zshrc`.
+
 ## [0.4.4] - 2026-04-13
 
 ### Fixed

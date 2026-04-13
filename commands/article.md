@@ -39,7 +39,8 @@ Task tool call:
       --output "/Users/zorro/Documents/Obsidian/myrag/images/{slug}-hero.jpg" \
       --size 2K
 
-    If GEMINI_API_KEY is not in env, read it from ~/.openclaw/openclaw.json under env.GEMINI_API_KEY.
+    GEMINI_API_KEY must be set as an environment variable (e.g. in ~/.zshrc).
+    If not set, skip image generation and warn the user.
     Return the saved image path.
 ```
 
