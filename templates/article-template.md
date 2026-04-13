@@ -11,7 +11,7 @@ created: {{DATE}}
 
 # {{TITLE}}
 
-![](images/{{SLUG}}-hero.jpg)
+![](../images/{{SLUG}}-hero.jpg)
 
 {{CONTENT}}
 
