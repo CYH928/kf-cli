@@ -36,7 +36,7 @@ Task tool call:
     GEMINI_API_KEY="$GEMINI_API_KEY" /Users/zorro/.claude/skills/gemini-image-generator/scripts/venv/bin/python3 \
       /Users/zorro/.claude/skills/gemini-image-generator/scripts/generate.py \
       --prompt "[DESCRIPTIVE IMAGE PROMPT - no text/words, modern, professional, vibrant]" \
-      --output "/Users/zorro/Documents/Obsidian/Claudecode/images/{slug}-hero.jpg" \
+      --output "/Users/zorro/Documents/Obsidian/myrag/images/{slug}-hero.jpg" \
       --size 2K
 
     If GEMINI_API_KEY is not in env, read it from ~/.openclaw/openclaw.json under env.GEMINI_API_KEY.
@@ -83,7 +83,7 @@ Substitute:
 
 ### 4. Save to Obsidian Vault
 
-Use Write tool to save to `/Users/zorro/Documents/Obsidian/Claudecode/{filename}`
+Use Write tool to save to `/Users/zorro/Documents/Obsidian/myrag/notes/{filename}`
 
 **Filename format:** `YYYY-MM-DD-{slug}.md`
 

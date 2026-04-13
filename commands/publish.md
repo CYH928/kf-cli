@@ -27,7 +27,7 @@ Task tool call:
     Run this command:
     ```bash
     PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/kf-cli"
-    "$PLUGIN_DIR/scripts/core/publish.sh" "$ARGUMENTS" "/Users/zorro/Documents/Obsidian/Claudecode"
+    "$PLUGIN_DIR/scripts/core/publish.sh" "$ARGUMENTS" "/Users/zorro/Documents/Obsidian/myrag"
     ```
 
     After the script completes, check the output:
