@@ -29,7 +29,8 @@ Task tool call:
     Run this command:
     ```bash
     PLUGIN_DIR="$HOME/.claude/plugins/marketplaces/kf-cli"
-    "$PLUGIN_DIR/scripts/core/publish.sh" "$ARGUMENTS" "/Users/zorro/Documents/Obsidian/myrag"
+    VAULT_PATH="${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}"
+    "$PLUGIN_DIR/scripts/core/publish.sh" "$ARGUMENTS" "$VAULT_PATH"
     ```
 
     After the script completes, check the output:
