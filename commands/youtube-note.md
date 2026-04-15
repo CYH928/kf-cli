@@ -35,7 +35,7 @@ The skill will:
    If yt-dlp is not available, use WebFetch to get the YouTube page and extract metadata from HTML.
 4. **Read and substitute template** (see CRITICAL section below)
 5. Analyze content and apply AI-powered smart tagging (using tag taxonomy)
-6. Save note using Write tool to `/Users/zorro/Documents/Obsidian/myrag/notes/{filename}`
+6. Save note using Write tool to `${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/notes/{filename}`
 
 ## ⚠️ CRITICAL: Template Compliance
 
