@@ -145,6 +145,10 @@ case "$MODE" in
             fetch_and_extract "$INSTALL_DIR"
             echo "✓ Installed to $INSTALL_DIR"
         fi
+        # check_deps returns non-zero when required tools are missing. The `|| echo ...`
+        # is load-bearing under `set -euo pipefail`: without it the script would abort
+        # here instead of printing the next-steps block below. Do not "simplify" by
+        # removing the `||` — the non-zero return is intentional and informational.
         check_deps || echo "   (install skills that need missing tools will fail until the warnings above are fixed)"
         print_next_steps
         ;;
