@@ -229,18 +229,47 @@ if [[ "$ARGUMENTS" == *"--enable-short-commands"* ]]; then
     echo ""
     echo "📝 Enabling short commands..."
 
-    PLUGIN_COMMANDS=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/commands" -type d 2>/dev/null | head -1)
-    VAULT_COMMANDS=".claude/commands"
+    # Locate plugin commands dir — try all known cache layouts
+    PLUGIN_COMMANDS=""
+    for candidate in \
+        "$HOME/.claude/plugins/marketplaces/kf-cli/commands" \
+        "$HOME/.claude/plugins/marketplaces/zorskill/plugins/kf-cli/commands" \
+        "$HOME/.claude/plugins/cache/zorskill/plugins/kf-cli/commands" \
+        "$HOME/.claude/plugins/cache/claude-plugins-official/kf-cli/commands"; do
+        if [[ -d "$candidate" ]]; then
+            PLUGIN_COMMANDS="$candidate"
+            break
+        fi
+    done
+    # Fall back to find if none of the above matched
+    if [[ -z "$PLUGIN_COMMANDS" ]]; then
+        PLUGIN_COMMANDS=$(find "$HOME/.claude/plugins" -maxdepth 7 -path "*/kf-cli/commands" -type d 2>/dev/null | head -1)
+    fi
 
+    if [[ -z "$PLUGIN_COMMANDS" ]]; then
+        echo "❌ Could not locate kf-cli commands directory"
+        echo "   Searched: $HOME/.claude/plugins"
+        echo "   Try: /plugin install kf-cli first"
+        exit 1
+    fi
+    echo "   Plugin commands: $PLUGIN_COMMANDS"
+
+    VAULT_COMMANDS=".claude/commands"
     mkdir -p "$VAULT_COMMANDS"
 
     # Copy each command
+    COPIED=0
     for cmd in capture.md youtube-note.md idea.md gitingest.md study-guide.md publish.md semantic-search.md share.md; do
         if [[ -f "$PLUGIN_COMMANDS/$cmd" ]]; then
             cp "$PLUGIN_COMMANDS/$cmd" "$VAULT_COMMANDS/$cmd"
             echo "  ✅ /${cmd%.md}"
+            COPIED=$((COPIED + 1))
         fi
     done
+    if (( COPIED == 0 )); then
+        echo "❌ No command files found in $PLUGIN_COMMANDS"
+        exit 1
+    fi
 
     # Update config
     jq '.enable_short_commands = true' .claude/config.local.json > .claude/config.local.json.tmp
