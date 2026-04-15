@@ -29,7 +29,12 @@ else
 fi
 
 # Default URL if not in config
-SHAREHUB_URL="${SHAREHUB_URL:-https://sharehub.zorro.hk}"
+SHAREHUB_URL="${SHAREHUB_URL:-}"
+if [[ -z "$SHAREHUB_URL" ]]; then
+    echo "❌ SHAREHUB_URL not set and no sharehub_url in .claude/config.local.json"
+    echo "   Run /kf-cli:setup to configure your publishing target"
+    exit 1
+fi
 
 # Check if using custom domain (no path prefix needed) or GitHub Pages subdirectory
 if [[ "$SHAREHUB_URL" =~ github\.io/([^/]+) ]]; then

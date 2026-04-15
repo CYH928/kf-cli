@@ -69,7 +69,7 @@ For paywalled content, manually copy the text and use `/capture` with the pasted
 **Fix:**
 ```bash
 # Clone sharehub if missing
-cd ~/Dev && git clone https://github.com/ZorroCheng-MC/sharehub.git
+cd ~/Dev && git clone https://github.com/<your-user>/<your-sharehub-repo>.git
 
 # If push is rejected, check auth
 gh auth status

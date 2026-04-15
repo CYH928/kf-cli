@@ -153,7 +153,7 @@ echo ""
 mkdir -p .claude
 
 # Set defaults if not discovered
-SHAREHUB_URL="${SHAREHUB_URL:-https://zorrocheng-mc.github.io/sharehub}"
+SHAREHUB_URL="${SHAREHUB_URL:-}"
 SHAREHUB_PATH="${SHAREHUB_PATH:-}"
 
 # Convert to ~ notation for config
