@@ -1,5 +1,5 @@
 ---
-name: obsidian-vault-manager
+name: kf-cli
 description: Manage Obsidian knowledge base - capture ideas, YouTube videos, articles, repositories, create study guides, publish to GitHub Pages, and share notes via URL (no server storage). Use smart AI tagging for automatic organization. CLI-native — no Docker/MCP required.
 allowed-tools:
   - Bash(*)
