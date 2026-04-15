@@ -4,10 +4,14 @@
 #   curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | sh
 #   curl -fsSL .../install.sh | sh -s -- --update
 #   curl -fsSL .../install.sh | sh -s -- --uninstall
+#
+# Advanced: override the source tarball (e.g. to test a feature branch)
+#   REPO_TARBALL=https://github.com/ZorCorp/kf-cli/archive/refs/heads/my-branch.tar.gz \
+#     bash install.sh
 
 set -euo pipefail
 
-REPO_TARBALL="https://github.com/ZorCorp/kf-cli/archive/refs/heads/master.tar.gz"
+REPO_TARBALL="${REPO_TARBALL:-https://github.com/ZorCorp/kf-cli/archive/refs/heads/master.tar.gz}"
 INSTALL_DIR="$HOME/.agents/skills/kf-cli"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 BACKUP_DIR="$HOME/.agents/skills/kf-cli.bak-$TIMESTAMP"
