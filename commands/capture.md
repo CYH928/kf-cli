@@ -2,10 +2,7 @@
 description: Smart capture router - delegates to specialized handlers based on content type
 argument-hint: [content to capture]
 allowed-tools:
-  - Bash(*)
-  - Read(*)
-  - Write(*)
-  - WebFetch(*)
+  - SlashCommand(*)
 ---
 
 ## Task
