@@ -67,6 +67,38 @@ Optional env vars:
 
 ---
 
+## Don't use Obsidian?
+
+**kf-cli does not require Obsidian at runtime.** The "vault" is just a folder containing a `notes/` subdirectory; kf-cli writes plain Markdown files with YAML frontmatter that any editor (VS Code, Zed, Typora, `bat`, `glow`, plain `cat`) can read. No Obsidian app, plugin, or local REST API is called.
+
+### First-run on a machine without Obsidian
+
+The vault resolver (listed above) falls back to `$HOME/Documents/Obsidian/myrag` if `$KF_VAULT_PATH` is unset and the current directory has no `notes/` folder. On a non-Obsidian system that path usually doesn't exist, and the first capture command will error on a missing directory. Two clean fixes:
+
+**Option 1 — point at any directory (recommended):**
+
+```bash
+mkdir -p ~/kf-vault/notes
+export KF_VAULT_PATH=~/kf-vault
+# add the export to your shell rc if you want it permanent
+```
+
+**Option 2 — materialize the default path:**
+
+If you'd rather not set an env var, just create the default path kf-cli looks for:
+
+```bash
+mkdir -p ~/Documents/Obsidian/myrag/notes
+```
+
+kf-cli will then find the fallback and write notes into `~/Documents/Obsidian/myrag/notes/` — Obsidian does not need to be installed for this to work. (The path is named after Obsidian only because that's the author's personal layout; it is otherwise an ordinary folder.)
+
+### What degrades without Obsidian (cosmetic, not functional)
+
+Notes cross-link with `[[path/to/note|Title]]` wikilink syntax. Obsidian renders those as clickable links; most other Markdown viewers show them as literal text. Published output via `/kf-cli:publish` is unaffected — sharehub's Jekyll config converts wikilinks server-side.
+
+---
+
 ## Commands
 
 | Command | Description |
