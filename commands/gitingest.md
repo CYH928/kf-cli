@@ -60,7 +60,7 @@ Analyze GitHub repositories using the `gh` CLI and create LLM-optimized markdown
 - Run `gh auth status` to verify authentication
 
 **Output:**
-- Auto-saves to: `/Users/zorro/Documents/Obsidian/myrag/notes/`
+- Auto-saves to: `${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/notes/`
 - Filename format: `YYYY-MM-DD-<repo-name>-repository-analysis.md`
 - Includes frontmatter with tags, metadata, and classification
 
