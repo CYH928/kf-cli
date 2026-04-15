@@ -6,29 +6,28 @@ kf-cli is a **pure skill**: it exposes commands and templates only. Identity (wh
 
 ---
 
-## Install — Option 1: Shell installer (agent-agnostic)
+## Install
 
-Installs to `~/.agents/skills/kf-cli/` — the standard skill root scanned by OpenClaw and compatible with any framework that reads Markdown-with-frontmatter skills.
+**Two paths, by invoker. Pick one — they are not interchangeable.**
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | sh
-```
+### Option 1: Shell installer — for OpenClaw (and any agent framework that reads `~/.agents/skills/`)
 
-Update:
+Installs to `~/.agents/skills/kf-cli/`. OpenClaw and other agent runtimes that scan the agent-skill standard layout will pick it up automatically. Claude Code does **not** read this path — use Option 2 for Claude Code.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | sh -s -- --update
+curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash
 ```
 
-Uninstall:
+Update / uninstall:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | sh -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --update
+curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --uninstall
 ```
 
-## Install — Option 2: Claude Code plugin marketplace
+### Option 2: Claude Code plugin marketplace — for Claude Code users
 
-For Claude Code users who want plugin-manager integration:
+Claude Code discovers skills through its plugin manager, not through `~/.agents/skills/`. Run this inside Claude Code:
 
 ```
 /plugin marketplace add ZorCorp/zorskill

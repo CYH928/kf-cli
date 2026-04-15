@@ -71,4 +71,4 @@ Task tool call:
 
 ## Password Protection
 
-Add `access: private` to frontmatter for password-protected documents (password: "maco").
+Add `access: private` to a note's frontmatter to mark it as password-protected. The password itself is **not** configured in this command or the kf-cli source — it lives in your sharehub repo's site config (e.g. `_config.yml` or equivalent), so only you and your deployment control it. See your sharehub repo's access-control docs for the specific field.
