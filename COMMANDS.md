@@ -241,7 +241,7 @@ Publishes a note to GitHub Pages via the sharehub repository with image path con
 /kf-cli:publish KFE/KF-MIGRATION-CHECKLIST.md
 ```
 
-**Output**: Published URL at `https://sharehub.zorro.hk/documents/{filename}.html`. Reports `VERIFIED_URL` (all checks passed) or `UNVERIFIED_URL` (published with issues).
+**Output**: Published URL at `https://<your-sharehub-host>/documents/{filename}.html`. Reports `VERIFIED_URL` (all checks passed) or `UNVERIFIED_URL` (published with issues).
 
 ---
 
@@ -272,7 +272,7 @@ Generates a shareable URL containing the full note content encoded in the URL fr
 /kf-cli:share paydollar-test-plan
 ```
 
-**Output**: Shareable URL at `https://sharehub.zorro.hk/share#<encoded-data>`, auto-copied to clipboard. Warns if URL exceeds 4000 chars; recommends `/publish` if over 8000 chars.
+**Output**: Shareable URL at `https://<your-sharehub-host>/share#<encoded-data>`, auto-copied to clipboard. Warns if URL exceeds 4000 chars; recommends `/publish` if over 8000 chars.
 
 ---
 

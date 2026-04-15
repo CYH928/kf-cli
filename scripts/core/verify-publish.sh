@@ -15,7 +15,11 @@ CONFIG_FILE="$VAULT_PATH/.claude/config.local.json"
 if [[ -f "$CONFIG_FILE" ]]; then
     SHAREHUB_URL=$(jq -r '.sharehub_url // empty' "$CONFIG_FILE")
 fi
-SHAREHUB_URL="${SHAREHUB_URL:-https://sharehub.zorro.hk}"
+SHAREHUB_URL="${SHAREHUB_URL:-}"
+if [[ -z "$SHAREHUB_URL" ]]; then
+    echo "❌ SHAREHUB_URL not set"
+    exit 1
+fi
 
 # Add .md extension if not provided
 if [[ ! "$NOTE_FILE" =~ \.md$ ]]; then

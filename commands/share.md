@@ -48,7 +48,8 @@ Task tool call:
     import json, zlib, base64, subprocess, sys, os
 
     # Read vault config for share URL (optional override)
-    SHARE_BASE_URL = "https://sharehub.zorro.hk/share"
+    import os
+    SHARE_BASE_URL = os.environ.get("KF_SHARE_BASE_URL", "https://example.com/share")
     config_path = os.path.join(os.environ.get("PWD", os.getcwd()), ".claude", "config.local.json")
     if os.path.exists(config_path):
         try:

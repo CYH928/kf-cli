@@ -33,10 +33,12 @@ Task tool call:
     Topic: [BRIEF TOPIC DESCRIPTION]
 
     Run this command:
-    GEMINI_API_KEY="$GEMINI_API_KEY" /Users/zorro/.claude/skills/gemini-image-generator/scripts/venv/bin/python3 \
-      /Users/zorro/.claude/skills/gemini-image-generator/scripts/generate.py \
+    VAULT_PATH="${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}"
+    GEMINI_GEN_DIR="${GEMINI_IMG_GEN_DIR:-$HOME/.claude/skills/gemini-image-generator}"
+    GEMINI_API_KEY="$GEMINI_API_KEY" "$GEMINI_GEN_DIR/scripts/venv/bin/python3" \
+      "$GEMINI_GEN_DIR/scripts/generate.py" \
       --prompt "[DESCRIPTIVE IMAGE PROMPT - no text/words, modern, professional, vibrant]" \
-      --output "/Users/zorro/Documents/Obsidian/myrag/images/{slug}-hero.jpg" \
+      --output "$VAULT_PATH/images/{slug}-hero.jpg" \
       --size 2K
 
     GEMINI_API_KEY must be set as an environment variable (e.g. in ~/.zshrc).
@@ -85,7 +87,7 @@ Substitute:
 
 ### 4. Save to Obsidian Vault
 
-Use Write tool to save to `/Users/zorro/Documents/Obsidian/myrag/notes/{filename}`
+Use Write tool to save to `${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/notes/{filename}`
 
 **Filename format:** `YYYY-MM-DD-{slug}.md`
 

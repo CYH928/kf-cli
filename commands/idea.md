@@ -29,7 +29,7 @@ Create an idea note using direct file operations (no MCP/Docker required).
 4. Apply AI-powered smart tagging (using tag taxonomy)
 5. Generate smart filename: `{date}-{3-5-word-idea-name}.md`
 6. Replace all `{{PLACEHOLDER}}` with actual values
-7. Save note using Write tool to `/Users/zorro/Documents/Obsidian/myrag/notes/{filename}`
+7. Save note using Write tool to `${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/notes/{filename}`
 
 ## Tag Taxonomy Reference
 

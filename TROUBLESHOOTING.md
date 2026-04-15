@@ -69,7 +69,7 @@ For paywalled content, manually copy the text and use `/capture` with the pasted
 **Fix:**
 ```bash
 # Clone sharehub if missing
-cd ~/Dev && git clone https://github.com/ZorroCheng-MC/sharehub.git
+cd ~/Dev && git clone https://github.com/<your-user>/<your-sharehub-repo>.git
 
 # If push is rejected, check auth
 gh auth status
@@ -97,7 +97,7 @@ Ensure the local `sharehub` repo is on the correct branch and has no conflicting
 **Fix:**
 ```bash
 # Verify symlinks
-ls -la ~/Documents/Obsidian/Claudecode/kf-cli/templates/
+ls -la "${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/kf-cli/templates/"
 
 # Re-run setup if broken
 # or manually re-link templates from the source

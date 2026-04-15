@@ -97,7 +97,7 @@ Every kf-claude command has a 1:1 equivalent in kf-cli. Just change the prefix.
 Both plugins can run simultaneously. There are no conflicts.
 
 - Commands are namespaced: `/kf-claude:youtube-note` and `/kf-cli:youtube-note` are independent
-- Both write to the same vault path (`/Users/zorro/Documents/Obsidian/Claudecode`)
+- Both write to the same vault path (resolved from `$KF_VAULT_PATH`, default `$HOME/Documents/Obsidian/myrag`)
 - Both use the same templates and tag taxonomy
 - You can mix and match commands from either plugin in the same session
 

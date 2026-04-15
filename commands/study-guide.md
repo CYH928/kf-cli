@@ -34,7 +34,7 @@ Create a study guide note using CLI tools (no MCP/Docker required).
 5. Apply AI-powered smart tagging (using tag taxonomy)
 6. Generate structured learning plan with objectives and assessments
 7. Replace all `{{PLACEHOLDER}}` with actual values
-8. Save note using Write tool to `/Users/zorro/Documents/Obsidian/myrag/notes/{filename}`
+8. Save note using Write tool to `${KF_VAULT_PATH:-$HOME/Documents/Obsidian/myrag}/notes/{filename}`
 
 ## Tag Taxonomy Reference
 

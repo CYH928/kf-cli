@@ -1,5 +1,5 @@
 ---
-name: obsidian-vault-manager
+name: kf-cli
 description: Manage Obsidian knowledge base - capture ideas, YouTube videos, articles, repositories, create study guides, publish to GitHub Pages, and share notes via URL (no server storage). Use smart AI tagging for automatic organization. CLI-native — no Docker/MCP required.
 allowed-tools:
   - Bash(*)
@@ -18,9 +18,14 @@ Manage an AI-powered Obsidian knowledge base with automatic organization and Git
 
 ## Vault Configuration
 
-- **Vault Path**: `/Users/zorro/Documents/Obsidian/Claudecode`
-- **Publishing Folder**: `documents/` (auto-deploys to GitHub Pages)
-- **GitHub Repository**: `ZorroCheng-MC/sharehub`
+The skill resolves the vault path at runtime in this order:
+
+1. `$KF_VAULT_PATH` environment variable (if set and `$KF_VAULT_PATH/notes/` exists)
+2. Current working directory (if it contains `notes/`)
+3. `$HOME/Documents/Obsidian/myrag` (fallback default)
+
+- **Publishing target**: configured by `/kf-cli:setup` — see `$VAULT/.claude/config.local.json` (`sharehub_repo`, `sharehub_url` keys).
+- **GitHub repository for publishing**: any repo you configure; not hardcoded.
 
 ## CLI Tool Dependencies
 
@@ -246,11 +251,11 @@ Intelligently route content based on type and create properly tagged notes.
 - **Verification**: `scripts/core/verify-publish.sh`
 - **Execution**: Task tool (spawns background agent)
 
-**Publishing Paths:**
-- **Vault**: `/Users/zorro/Documents/Obsidian/Claudecode`
-- **Sharehub**: `/Users/zorro/Dev/sharehub`
-- **Repository**: `ZorroCheng-MC/sharehub`
-- **GitHub Pages**: `https://sharehub.zorro.hk`
+**Publishing Paths (configurable):**
+- **Vault**: `$KF_VAULT_PATH` (or fallback resolution — see Vault Configuration)
+- **Sharehub local clone**: `sharehub_repo` in `$VAULT/.claude/config.local.json`
+- **Sharehub remote repo**: configured by `/kf-cli:setup`
+- **Published URL**: `sharehub_url` in `$VAULT/.claude/config.local.json`
 
 ### 3. Share via URL
 
