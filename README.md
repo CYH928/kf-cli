@@ -56,6 +56,8 @@ The skill resolves the vault path at runtime:
 
 For publishing, run `/kf-cli:setup` inside your vault to create `.claude/config.local.json` with `sharehub_repo` and `sharehub_url`.
 
+`/kf-cli:setup` also scaffolds the standard vault layout on first run — it creates `notes/`, `wiki/`, `raw/`, `output/`, `images/`, `Templates/` if missing, and seeds a starter `CLAUDE.md` (with the Capture → Wiki Rule + Tag → Topic mapping) plus `wiki/_master-index.md`. The seeding step is **non-destructive** — any existing `CLAUDE.md` or `_master-index.md` is preserved as-is.
+
 Optional env vars:
 
 | Var | Purpose | Default |

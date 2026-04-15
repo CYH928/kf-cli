@@ -87,7 +87,54 @@ fi
 echo ""
 ```
 
-## Step 4: Configure Sharehub (Publishing)
+## Step 4: Scaffold Vault Layout
+
+Create the standard vault directories and seed a starter `CLAUDE.md` + `wiki/_master-index.md` if they don't already exist. **Non-destructive** — nothing is overwritten; existing files are preserved.
+
+```bash
+echo "🏗️  Checking vault layout..."
+echo ""
+
+# Re-derive in case this block runs in a fresh shell
+VAULT_PATH="${VAULT_PATH:-$(pwd)}"
+PLUGIN_DIR=$(find "$HOME/.claude/plugins" -maxdepth 6 -path "*/kf-cli/commands" -type d 2>/dev/null | head -1 | sed "s|/commands$||")
+SKELETON="$PLUGIN_DIR/templates/vault-skeleton"
+
+# Standard vault subdirectories — created only if missing
+CREATED_DIRS=()
+for d in notes wiki raw output images Templates; do
+    if [[ ! -d "$VAULT_PATH/$d" ]]; then
+        mkdir -p "$VAULT_PATH/$d"
+        CREATED_DIRS+=("$d")
+    fi
+done
+
+if (( ${#CREATED_DIRS[@]} > 0 )); then
+    echo "✅ Created directories: ${CREATED_DIRS[*]}"
+else
+    echo "ℹ All standard vault directories already present"
+fi
+
+# Seed CLAUDE.md — NEVER overwrite
+if [[ -f "$VAULT_PATH/CLAUDE.md" ]]; then
+    echo "ℹ CLAUDE.md already exists — preserved"
+elif [[ -f "$SKELETON/CLAUDE.md" ]]; then
+    cp "$SKELETON/CLAUDE.md" "$VAULT_PATH/CLAUDE.md"
+    echo "✅ Seeded CLAUDE.md (Capture → Wiki Rule + Tag → Topic mapping — edit to match your topics)"
+fi
+
+# Seed wiki/_master-index.md — NEVER overwrite
+if [[ -f "$VAULT_PATH/wiki/_master-index.md" ]]; then
+    echo "ℹ wiki/_master-index.md already exists — preserved"
+elif [[ -f "$SKELETON/wiki/_master-index.md" ]]; then
+    cp "$SKELETON/wiki/_master-index.md" "$VAULT_PATH/wiki/_master-index.md"
+    echo "✅ Seeded wiki/_master-index.md"
+fi
+
+echo ""
+```
+
+## Step 5: Configure Sharehub (Publishing)
 
 ```bash
 echo "📤 Configuring publishing setup..."
@@ -144,7 +191,7 @@ fi
 echo ""
 ```
 
-## Step 5: Create Vault Configuration
+## Step 6: Create Vault Configuration
 
 ```bash
 echo "⚙️  Creating configuration..."
@@ -175,7 +222,7 @@ echo "   sharehub_url: $SHAREHUB_URL"
 echo "   sharehub_repo: $SHAREHUB_PATH_CONFIG"
 ```
 
-## Step 6: Enable Short Commands (Optional)
+## Step 7: Enable Short Commands (Optional)
 
 ```bash
 if [[ "$ARGUMENTS" == *"--enable-short-commands"* ]]; then
@@ -212,7 +259,7 @@ else
 fi
 ```
 
-## Step 7: Summary
+## Step 8: Summary
 
 ```bash
 echo ""
