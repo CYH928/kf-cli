@@ -99,6 +99,25 @@ Notes cross-link with `[[path/to/note|Title]]` wikilink syntax. Obsidian renders
 
 ---
 
+## Optional: floating read-status button (Obsidian only)
+
+Every kf-cli capture template writes `read: false` into frontmatter. That field is inert on its own — it only lights up if you also install the floating read-status button, a small Obsidian Templater startup script that injects a 📕 / 📖 toggle into the corner of every note and flips the `read:` flag with one click.
+
+This is **optional** and **Obsidian-specific**. Skip it if you don't use Obsidian.
+
+**Install:**
+
+1. In Obsidian, install the [Templater](https://github.com/SilentVoid13/Templater) community plugin.
+2. Copy the script into your vault's Templates folder:
+   ```bash
+   cp ~/.agents/skills/kf-cli/templates/floating-read-button-startup.md "$KF_VAULT_PATH/Templates/"
+   # Claude Code users: replace ~/.agents/skills/kf-cli with the plugin install dir
+   ```
+3. In Obsidian → Settings → Templater → **Startup Templates**, add `Templates/floating-read-button-startup.md`.
+4. Restart Obsidian. The button appears on any note whose frontmatter contains `read:` (all kf-cli notes qualify).
+
+---
+
 ## Commands
 
 | Command | Description |
