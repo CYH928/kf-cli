@@ -249,6 +249,8 @@ if [[ "$ARGUMENTS" == *"--enable-short-commands"* ]]; then
     echo ""
     echo "✅ Short commands enabled!"
     echo "   You can now use /capture instead of /kf-cli:capture"
+    echo ""
+    echo "⚠️  Run /reload-plugins to activate the short commands"
 else
     echo ""
     echo "ℹ️  Using plugin-prefixed commands (default)"

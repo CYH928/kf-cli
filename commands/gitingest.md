@@ -177,3 +177,18 @@ visibility: <public|private>
 - **403 Forbidden**: Rate limit exceeded or insufficient permissions
 - **gh not authenticated**: Run `gh auth login` to authenticate
 - **Invalid URL**: Provide full GitHub URL format
+
+## After Saving: Update Wiki Index
+
+Once the note file is written, update the wiki immediately:
+
+1. Read the saved note's `tags` list from its YAML frontmatter
+2. Read `CLAUDE.md` in the vault root and find the **Tag → Topic Mapping** table
+3. For each tag, look up the matching wiki file path in the table
+4. For each matched wiki file:
+   - If it doesn't exist yet, create it with a `# [Topic]` heading and a `## Notes` section
+   - Append: `- [[notes/FILENAME|TITLE]] — one-sentence description`
+5. If any matched topic file was newly created, add an entry for it in `wiki/_master-index.md`
+6. If no tags match the table, route to the most relevant existing topic based on the note's content
+
+**This step is required after every capture. Do not skip it.**

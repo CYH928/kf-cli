@@ -71,3 +71,18 @@ A comprehensive study guide with:
 
 **Input (Text)**: "Deep dive into distributed systems architecture"
 → `2025-10-28-distributed-systems-study-guide.md`
+
+## After Saving: Update Wiki Index
+
+Once the note file is written, update the wiki immediately:
+
+1. Read the saved note's `tags` list from its YAML frontmatter
+2. Read `CLAUDE.md` in the vault root and find the **Tag → Topic Mapping** table
+3. For each tag, look up the matching wiki file path in the table
+4. For each matched wiki file:
+   - If it doesn't exist yet, create it with a `# [Topic]` heading and a `## Notes` section
+   - Append: `- [[notes/FILENAME|TITLE]] — one-sentence description`
+5. If any matched topic file was newly created, add an entry for it in `wiki/_master-index.md`
+6. If no tags match the table, route to the most relevant existing topic based on the note's content
+
+**This step is required after every capture. Do not skip it.**
