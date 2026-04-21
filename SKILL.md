@@ -1,6 +1,7 @@
 ---
 name: kf-cli
 description: Manage Obsidian knowledge base - capture ideas, YouTube videos, articles, repositories, create study guides, publish to GitHub Pages, and share notes via URL (no server storage). Use smart AI tagging for automatic organization. CLI-native — no Docker/MCP required.
+license: MIT
 allowed-tools:
   - Bash(*)
   - Read(*)
@@ -10,6 +11,10 @@ allowed-tools:
   - WebFetch
   - Task(*)
   - SlashCommand(*)
+metadata:
+  version: "0.6.0"
+  repository: https://github.com/ZorCorp/kf-cli
+  homepage: https://github.com/ZorCorp/kf-cli
 ---
 
 # Obsidian Vault Manager (CLI-Native)
