@@ -8,31 +8,111 @@ kf-cli is a **pure skill**: it exposes commands and templates only. Identity (wh
 
 ## Install
 
-**Two paths, by invoker. Pick one — they are not interchangeable.**
+kf-cli follows the [Agent Skills specification](https://agentskills.io) — `SKILL.md` at the repo root, so every major AI tool can discover it. Pick whichever path matches your workflow.
 
-### Option 1: Shell installer — for OpenClaw (and any agent framework that reads `~/.agents/skills/`)
-
-Installs to `~/.agents/skills/kf-cli/`. OpenClaw and other agent runtimes that scan the agent-skill standard layout will pick it up automatically. Claude Code does **not** read this path — use Option 2 for Claude Code.
+### Option 1 — `npx skills` (**recommended**: cross-tool, one copy via symlinks)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash
+npx skills add CYH928/kf-cli
 ```
 
-Update / uninstall:
+`npx skills` stores a single copy in its own cache and symlinks it into each detected agent's skills directory (`.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, etc.). One copy on disk, every tool sees the same files. Add `-g` for a user-wide install that every project inherits.
+
+Tell any AI agent to install it:
+
+> Install the Agent Skill at github.com/CYH928/kf-cli using `npx skills add CYH928/kf-cli`.
+
+#### Optional: add `~/.agents/skills/kf-cli` as a canonical alias
+
+`npx skills` stores the real files in its own cache. If you prefer the Agent Skills standard path `~/.agents/skills/kf-cli/` to also resolve to the same files (e.g. OpenClaw or another framework scans that directory), add a symlink that points there after install. This does **not** break `npx skills` tracking — both paths end up pointing to the same npx cache.
+
+Tell Claude (or any agent with shell access) to run:
+
+> After `npx skills add CYH928/kf-cli` completes, please link `~/.agents/skills/kf-cli` to the same target:
+> ```bash
+> REAL="$(readlink -f ~/.claude/skills/kf-cli 2>/dev/null || readlink ~/.claude/skills/kf-cli)"
+> mkdir -p ~/.agents/skills
+> ln -sfn "$REAL" ~/.agents/skills/kf-cli
+> ls -la ~/.agents/skills/kf-cli   # confirm the symlink
+> ```
+
+**Windows (Git Bash):** if `ln -s` silently copies instead of linking, use a junction:
+```bash
+REAL_WIN="$(cygpath -w "$(readlink ~/.claude/skills/kf-cli)")"
+DST_WIN="$(cygpath -w ~/.agents/skills/kf-cli)"
+mkdir -p ~/.agents/skills
+echo "mklink /J \"$DST_WIN\" \"$REAL_WIN\"" | cmd
+```
+
+### Option 2 — `gh skill install` (GitHub CLI 2.90.0+)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --update
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash -s -- --uninstall
+gh skill install CYH928/kf-cli
 ```
 
-### Option 2: Claude Code plugin marketplace — for Claude Code users
+`gh skill` is **copy mode** (not symlinks), with interactive prompts for target agent and scope. Each agent ends up with its own copy. Good fit if you already use the `gh` workflow or prefer GitHub-signed release metadata.
 
-Claude Code discovers skills through its plugin manager, not through `~/.agents/skills/`. Run this inside Claude Code:
+Tell any AI agent to install it:
+
+> Install the Agent Skill at github.com/CYH928/kf-cli using `gh skill install CYH928/kf-cli`.
+
+### Option 3 — Claude Code plugin marketplace (Claude Code only)
+
+If you use Claude Code exclusively and want to follow its official plugin update flow:
 
 ```
 /plugin marketplace add ZorCorp/zorskill
 /plugin install kf-cli
 ```
+
+This path doesn't use `~/.agents/skills/` — Claude Code's plugin manager owns its own storage.
+
+### Option 4 — Shell installer (`curl | bash`: one place to manage, links into every tool)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/master/install.sh | bash
+```
+
+What it does:
+
+1. Downloads the full skill to `~/.agents/skills/kf-cli/` — the **single source of truth**.
+2. Detects which AI tools you have installed and creates a link from each tool's skills directory to the canonical copy:
+   - `~/.claude/skills/kf-cli` → `~/.agents/skills/kf-cli`
+   - `~/.codex/skills/kf-cli` → `~/.agents/skills/kf-cli`
+   - `~/.gemini/skills/kf-cli` → `~/.agents/skills/kf-cli`
+   - `~/.cursor/skills/kf-cli` → `~/.agents/skills/kf-cli`
+   - `~/.copilot/skills/kf-cli` → `~/.agents/skills/kf-cli`
+
+**One real copy, every tool sees it.** Run `--update` once, every agent picks up the new version. Pick this if you want kf-cli to live at exactly `~/.agents/skills/kf-cli/` (e.g. OpenClaw reads that path), or if you prefer not to depend on `npx` / `gh`.
+
+Tell any AI agent to install it:
+
+> Install kf-cli from github.com/CYH928/kf-cli by running:
+> `curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/master/install.sh | bash`
+
+Update / uninstall / advanced:
+
+```bash
+curl -fsSL .../install.sh | bash -s -- --update        # update + refresh links
+curl -fsSL .../install.sh | bash -s -- --uninstall     # remove skill + all kf-cli links
+curl -fsSL .../install.sh | bash -s -- --no-link       # install canonical copy only, skip links
+curl -fsSL .../install.sh | bash -s -- --force-link    # link even if tool dir absent (pre-seed)
+```
+
+**Windows:** works out of the box — the installer creates NTFS junctions (`mklink /J`), which don't require admin rights or Developer Mode. Linux / macOS use regular symlinks.
+
+---
+
+**Which should I pick?**
+
+| Situation | Pick |
+|---|---|
+| Cross-tool, one copy via symlinks (**recommended**) | **Option 1** (`npx skills`) |
+| Already using the `gh` CLI, want GitHub release metadata | Option 2 (`gh skill`) |
+| Claude Code only, prefer the official plugin flow | Option 3 (plugin marketplace) |
+| OpenClaw, or want the canonical copy at exactly `~/.agents/skills/kf-cli/` | Option 4 (shell installer) |
+
+All four install the same skill — **pick one; don't mix them** (whichever method runs last wins the per-tool skill path).
 
 ---
 
@@ -153,7 +233,7 @@ The model is always chosen by the invoker, never by the skill.
 
 ## Contributing
 
-Source: `github.com/ZorCorp/kf-cli`. PRs welcome. Before submitting:
+Source: `github.com/CYH928/kf-cli`. PRs welcome. Before submitting:
 
 ```bash
 # Audit checks — must all pass
