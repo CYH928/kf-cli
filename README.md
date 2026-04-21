@@ -8,41 +8,39 @@ kf-cli is a **pure skill**: it exposes commands and templates only. Identity (wh
 
 ## Install
 
-kf-cli follows the [Agent Skills specification](https://agentskills.io) — `SKILL.md` at the repo root, so every major AI tool can discover it. Pick whichever path matches your workflow.
+kf-cli follows the [Agent Skills specification](https://agentskills.io) — `SKILL.md` at the repo root, so every major AI tool can discover it.
 
-### Option 1 — `npx skills` (**recommended**: cross-tool, one copy via symlinks)
+**Canonical architecture:** real files always live at `~/.agents/skills/kf-cli/`. Every AI tool's skills directory gets a symlink that points there. One copy to manage, every tool sees the same files.
+
+```
+~/.agents/skills/kf-cli/          ← real files (single source of truth)
+~/.claude/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.gemini/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.codex/skills/kf-cli            → symlink → ~/.agents/skills/kf-cli
+~/.cursor/skills/kf-cli           → symlink → ~/.agents/skills/kf-cli
+~/.copilot/skills/kf-cli          → symlink → ~/.agents/skills/kf-cli
+```
+
+### Option 1 — `npx skills add` (**recommended**)
 
 ```bash
 npx skills add CYH928/kf-cli
 ```
 
-`npx skills` stores a single copy in its own cache and symlinks it into each detected agent's skills directory (`.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, etc.). One copy on disk, every tool sees the same files. Add `-g` for a user-wide install that every project inherits.
+Installs the real files to `~/.agents/skills/kf-cli/` and creates symlinks in each detected AI tool's skills directory (`.claude/skills/`, `.gemini/skills/`, `.codex/skills/`, `.cursor/skills/`, `.copilot/skills/`) pointing back to the canonical location. Add `-g` for a user-wide install that every project inherits.
 
 Tell any AI agent to install it:
 
 > Install the Agent Skill at github.com/CYH928/kf-cli using `npx skills add CYH928/kf-cli`.
 
-#### Optional: add `~/.agents/skills/kf-cli` as a canonical alias
+Update / uninstall:
 
-`npx skills` stores the real files in its own cache. If you prefer the Agent Skills standard path `~/.agents/skills/kf-cli/` to also resolve to the same files (e.g. OpenClaw or another framework scans that directory), add a symlink that points there after install. This does **not** break `npx skills` tracking — both paths end up pointing to the same npx cache.
-
-Tell Claude (or any agent with shell access) to run:
-
-> After `npx skills add CYH928/kf-cli` completes, please link `~/.agents/skills/kf-cli` to the same target:
-> ```bash
-> REAL="$(readlink -f ~/.claude/skills/kf-cli 2>/dev/null || readlink ~/.claude/skills/kf-cli)"
-> mkdir -p ~/.agents/skills
-> ln -sfn "$REAL" ~/.agents/skills/kf-cli
-> ls -la ~/.agents/skills/kf-cli   # confirm the symlink
-> ```
-
-**Windows (Git Bash):** if `ln -s` silently copies instead of linking, use a junction:
 ```bash
-REAL_WIN="$(cygpath -w "$(readlink ~/.claude/skills/kf-cli)")"
-DST_WIN="$(cygpath -w ~/.agents/skills/kf-cli)"
-mkdir -p ~/.agents/skills
-echo "mklink /J \"$DST_WIN\" \"$REAL_WIN\"" | cmd
+npx skills update CYH928/kf-cli   # pull latest, symlinks unchanged
+npx skills remove CYH928/kf-cli   # remove skill + all links
 ```
+
+**Windows (Git Bash):** if symlinks fail silently, `npx skills` falls back to NTFS junctions (`mklink /J`) — no admin rights or Developer Mode required.
 
 ### Option 2 — `gh skill install` (GitHub CLI 2.90.0+)
 
@@ -67,39 +65,18 @@ If you use Claude Code exclusively and want to follow its official plugin update
 
 This path doesn't use `~/.agents/skills/` — Claude Code's plugin manager owns its own storage.
 
-### Option 4 — Shell installer (`curl | bash`: one place to manage, links into every tool)
+### Option 4 — Shell installer (no npx / gh dependency)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/master/install.sh | bash
 ```
 
-What it does:
-
-1. Downloads the full skill to `~/.agents/skills/kf-cli/` — the **single source of truth**.
-2. Detects which AI tools you have installed and creates a link from each tool's skills directory to the canonical copy:
-   - `~/.claude/skills/kf-cli` → `~/.agents/skills/kf-cli`
-   - `~/.codex/skills/kf-cli` → `~/.agents/skills/kf-cli`
-   - `~/.gemini/skills/kf-cli` → `~/.agents/skills/kf-cli`
-   - `~/.cursor/skills/kf-cli` → `~/.agents/skills/kf-cli`
-   - `~/.copilot/skills/kf-cli` → `~/.agents/skills/kf-cli`
-
-**One real copy, every tool sees it.** Run `--update` once, every agent picks up the new version. Pick this if you want kf-cli to live at exactly `~/.agents/skills/kf-cli/` (e.g. OpenClaw reads that path), or if you prefer not to depend on `npx` / `gh`.
-
-Tell any AI agent to install it:
-
-> Install kf-cli from github.com/CYH928/kf-cli by running:
-> `curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/master/install.sh | bash`
-
-Update / uninstall / advanced:
+Same canonical architecture as Option 1 — installs to `~/.agents/skills/kf-cli/` and symlinks all detected tool dirs. Use this only if `npx` is unavailable in your environment.
 
 ```bash
 curl -fsSL .../install.sh | bash -s -- --update        # update + refresh links
 curl -fsSL .../install.sh | bash -s -- --uninstall     # remove skill + all kf-cli links
-curl -fsSL .../install.sh | bash -s -- --no-link       # install canonical copy only, skip links
-curl -fsSL .../install.sh | bash -s -- --force-link    # link even if tool dir absent (pre-seed)
 ```
-
-**Windows:** works out of the box — the installer creates NTFS junctions (`mklink /J`), which don't require admin rights or Developer Mode. Linux / macOS use regular symlinks.
 
 ---
 
@@ -107,12 +84,12 @@ curl -fsSL .../install.sh | bash -s -- --force-link    # link even if tool dir a
 
 | Situation | Pick |
 |---|---|
-| Cross-tool, one copy via symlinks (**recommended**) | **Option 1** (`npx skills`) |
+| Standard setup — cross-tool, canonical `~/.agents/skills/` layout (**recommended**) | **Option 1** (`npx skills`) |
 | Already using the `gh` CLI, want GitHub release metadata | Option 2 (`gh skill`) |
 | Claude Code only, prefer the official plugin flow | Option 3 (plugin marketplace) |
-| OpenClaw, or want the canonical copy at exactly `~/.agents/skills/kf-cli/` | Option 4 (shell installer) |
+| No `npx` available | Option 4 (shell installer) |
 
-All four install the same skill — **pick one; don't mix them** (whichever method runs last wins the per-tool skill path).
+All options install the same skill — **pick one; don't mix them** (whichever method runs last wins the per-tool skill path).
 
 ---
 
