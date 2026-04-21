@@ -13,26 +13,26 @@ kf-cli follows the [Agent Skills specification](https://agentskills.io) — `SKI
 ### Option 1 — `npx skills` (**recommended**: cross-tool, one copy via symlinks)
 
 ```bash
-npx skills add ZorCorp/kf-cli
+npx skills add CYH928/kf-cli
 ```
 
 `npx skills` stores a single copy in its own cache and symlinks it into each detected agent's skills directory (`.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, etc.). One copy on disk, every tool sees the same files. Add `-g` for a user-wide install that every project inherits.
 
 Tell any AI agent to install it:
 
-> Install the Agent Skill at github.com/ZorCorp/kf-cli using `npx skills add ZorCorp/kf-cli`.
+> Install the Agent Skill at github.com/CYH928/kf-cli using `npx skills add CYH928/kf-cli`.
 
 ### Option 2 — `gh skill install` (GitHub CLI 2.90.0+)
 
 ```bash
-gh skill install ZorCorp/kf-cli
+gh skill install CYH928/kf-cli
 ```
 
 `gh skill` is **copy mode** (not symlinks), with interactive prompts for target agent and scope. Each agent ends up with its own copy. Good fit if you already use the `gh` workflow or prefer GitHub-signed release metadata.
 
 Tell any AI agent to install it:
 
-> Install the Agent Skill at github.com/ZorCorp/kf-cli using `gh skill install ZorCorp/kf-cli`.
+> Install the Agent Skill at github.com/CYH928/kf-cli using `gh skill install CYH928/kf-cli`.
 
 ### Option 3 — Claude Code plugin marketplace (Claude Code only)
 
@@ -48,7 +48,7 @@ This path doesn't use `~/.agents/skills/` — Claude Code's plugin manager owns 
 ### Option 4 — Shell installer (`curl | bash`: one place to manage, links into every tool)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/main/install.sh | bash
 ```
 
 What it does:
@@ -65,8 +65,8 @@ What it does:
 
 Tell any AI agent to install it:
 
-> Install kf-cli from github.com/ZorCorp/kf-cli by running:
-> `curl -fsSL https://raw.githubusercontent.com/ZorCorp/kf-cli/master/install.sh | bash`
+> Install kf-cli from github.com/CYH928/kf-cli by running:
+> `curl -fsSL https://raw.githubusercontent.com/CYH928/kf-cli/main/install.sh | bash`
 
 Update / uninstall / advanced:
 
@@ -211,7 +211,7 @@ The model is always chosen by the invoker, never by the skill.
 
 ## Contributing
 
-Source: `github.com/ZorCorp/kf-cli`. PRs welcome. Before submitting:
+Source: `github.com/CYH928/kf-cli`. PRs welcome. Before submitting:
 
 ```bash
 # Audit checks — must all pass
